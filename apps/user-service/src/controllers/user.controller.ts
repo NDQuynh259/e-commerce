@@ -1,13 +1,16 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { UserService } from './user.service';
+import { UserService } from '../services/user.service';
+import { LoginDto } from '../dto/auth.dto';
 
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @MessagePattern({ cmd: 'login' })
-  async login(@Payload() data: any) {
+  async login(
+    @Payload() data: LoginDto,
+  ): Promise<AuthResponseDto | { error: string }> {
     const user = await this.userService.validateUser(data.email, data.password);
     if (user) {
       return this.userService.login(user);
@@ -26,7 +29,7 @@ export class UserController {
   }
 
   @MessagePattern({ cmd: 'validate_token' })
-  async validateToken(@Payload() data: any) {
+  async validateToken(@Payload() data: { token: string }) {
     // Logic validate token
     return { valid: true, userId: '1' };
   }

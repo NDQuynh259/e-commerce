@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { ProductService } from './product.service';
+import { ProductService } from '../services/product.service';
 
 @Controller()
 export class ProductController {

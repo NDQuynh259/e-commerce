@@ -1,6 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { OrderService } from './order.service';
+import { OrderService } from '../services/order.service';
+import { CreateOrderDto } from '../dto/create-order.dto';
 
 @Controller()
 export class OrderController {
@@ -12,7 +13,7 @@ export class OrderController {
   }
 
   @MessagePattern({ cmd: 'create_order' })
-  async createOrder(@Payload() data: any) {
+  async createOrder(@Payload() data: CreateOrderDto) {
     return this.orderService.create(data);
   }
 }
