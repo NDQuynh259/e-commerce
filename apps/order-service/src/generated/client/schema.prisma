@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Order {
-  id        String      @id @default(uuid())
+  id        String      @id @default(uuid(7))
   userId    String // Reference to User in User Service
   total     Float
   status    OrderStatus @default(PENDING)
@@ -21,10 +21,11 @@ model Order {
 }
 
 model OrderItem {
-  id        String @id @default(uuid())
+  id        String  @id @default(uuid(7))
   orderId   String
-  order     Order  @relation(fields: [orderId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
   productId String // Reference to Product in Product Service
+  variantId String? // Reference to ProductVariant in Product Service
   quantity  Int
   price     Float
 

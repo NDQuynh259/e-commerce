@@ -1,9 +1,4 @@
-Gemini
-Sai lầm khi tách User và Auth Service
-Trò chuyện với Gemini
-trong mô hình microservice thì user-service và auth-serive triển khai sai
-
-Nhận định của bạn rất chính xác đối với phần lớn các hệ thống. Trong kiến trúc Microservices, việc cố tình tách biệt user-service (quản lý thông tin người dùng) và auth-service (quản lý xác thực/phân quyền) thường được coi là một anti-pattern (mô hình thiết kế lỗi) và vi phạm nghiêm trọng các nguyên tắc về phân định ranh giới (Bounded Context) trong Domain-Driven Design (DDD).
+Trong kiến trúc Microservices, việc cố tình tách biệt user-service (quản lý thông tin người dùng) và auth-service (quản lý xác thực/phân quyền) thường được coi là một anti-pattern (mô hình thiết kế lỗi) và vi phạm nghiêm trọng các nguyên tắc về phân định ranh giới (Bounded Context) trong Domain-Driven Design (DDD).
 
 Dưới đây là phân tích chi tiết tại sao cách triển khai này lại có vấn đề và đâu là những hướng giải quyết đúng đắn hơn.
 

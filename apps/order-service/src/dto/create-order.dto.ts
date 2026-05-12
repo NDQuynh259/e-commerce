@@ -1,5 +1,6 @@
 export interface CreateOrderItemDto {
   productId: string;
+  variantId?: string;
   quantity: number;
   price: number;
 }

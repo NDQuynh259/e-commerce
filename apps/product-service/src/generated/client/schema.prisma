@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Category {
-  id        String    @id @default(uuid())
+  id        String    @id @default(uuid(7))
   name      String    @unique
   products  Product[]
   createdAt DateTime  @default(now())
@@ -19,15 +19,29 @@ model Category {
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String           @id @default(uuid(7))
   name        String
   description String?
-  price       Float
-  stock       Int      @default(0)
+  price       Float // Base price
   categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  category    Category         @relation(fields: [categoryId], references: [id])
+  variants    ProductVariant[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 
   @@map("products")
+}
+
+model ProductVariant {
+  id        String   @id @default(uuid(7))
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  name      String // e.g., "Red, XL"
+  sku       String?  @unique
+  price     Float? // Override base price if needed
+  stock     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("product_variants")
 }

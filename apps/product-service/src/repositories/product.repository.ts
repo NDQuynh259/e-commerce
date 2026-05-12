@@ -8,13 +8,15 @@ export class ProductRepository {
   constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<Product[]> {
-    return this.prisma.product.findMany({ include: { category: true } });
+    return this.prisma.product.findMany({
+      include: { category: true, variants: true },
+    });
   }
 
   async findById(id: string): Promise<Product | null> {
     return this.prisma.product.findUnique({
       where: { id },
-      include: { category: true },
+      include: { category: true, variants: true },
     });
   }
 
